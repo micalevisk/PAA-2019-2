@@ -1,0 +1,8 @@
+{
+  "files.associations": {
+    "*.make": "makefile",
+    "*.bats": "shellscript",
+    "makefile.*": "makefile",
+    "io.h": "c"
+  }
+}
