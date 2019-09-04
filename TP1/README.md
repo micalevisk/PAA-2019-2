@@ -4,7 +4,7 @@ cd questao4
 pipenv install # apenas na primeira vez
 
 pipenv run scripts/generate_input.py 10000 B "input"
-cc src/main.c -I./src/algoritmos -o main && ./main 10000 "input"
+cc src/main.c -I./src/algoritmos -o main && ./main h 10000 "input"
 ```
 
 # O relatório deve conter

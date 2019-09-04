@@ -3,6 +3,7 @@
     "*.make": "makefile",
     "*.bats": "shellscript",
     "makefile.*": "makefile",
-    "io.h": "c"
+    "io.h": "c",
+    "algorithms.h": "c"
   }
 }

@@ -1,6 +1,4 @@
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "algorithms.h"
 
 /*
 ALGORITMO PARA ORDENAÇÃO CRESCENTE O(nlogn) ou O(nlogn):
@@ -48,6 +46,62 @@ Rotina_Heapsort
 -------------------------------------------------------------------------
 */
 
-void* sort(void* arr, size_t size, unsigned long nitems) {
-  return NULL;
+	
+
+void heapify(int64* v, uint64 pai, int64 posUltimo) {
+	uint64 esq, dir, posMaior;
+	esq = 2*pai + 1;
+	dir = esq + 1;
+	posMaior = pai;
+
+	if ((esq <= posUltimo) && (v[esq] > v[posMaior])) {
+		posMaior = esq;
+	}
+	if ((dir <= posUltimo) && (v[dir] > v[posMaior])) {
+		posMaior = dir;
+	}
+
+	if (posMaior != pai) {
+		swap(&v[pai], &v[posMaior]);
+		heapify(v, posMaior, posUltimo);
+	}
+
 }
+
+void buildHeap(int64* v, uint64 n) {
+	for (int64 i=(n-1)/2; i >= 0; --i)
+		heapify(v, i, n-1);
+}
+
+
+void heapsort(int64* v, uint64 n) {
+	buildHeap(v, n);
+	for (int64 i=n-1; i > 0; ){
+		swap(&v[i], &v[0]);
+		--i;
+		heapify(v, 0, i);
+	}
+}
+
+
+// Analytics OrdenacaoAnalytics::analytics_heapsort(){
+// 	int* dadosLidos = readArray();
+
+// 	Analytics analise = Analytics("heap", tamanho);
+// 	analise.iniciarTempo();
+// 	heapsort(dadosLidos, tamanho);
+// 	analise.pararTempo();
+
+// 	#ifdef VERBOSE
+// 		cout << "{depois do heap}: ";
+// 		Extras::imprimirElementos(dadosLidos, tamanho);//resultado interno
+// 	#endif
+// 	#ifdef DEBUG
+// 		vector<int> copiaDados(dadosLidos, dadosLidos + sizeof(dadosLidos)/sizeof(int));
+// 		UnitTest::isSorted<int>(copiaDados);
+// 	#endif
+
+// 	delete[] dadosLidos;
+
+// 	return analise;
+// }
