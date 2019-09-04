@@ -3,13 +3,14 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
+#include "algorithms.h"
 
 #define int64 long long // `int64_t` é {long int}
 
 
 int main(int argc, char* argv[]) {
   if (argc != 3) {
-    printf("ARGS: <amount> <path/to/input/file>");
+    printf("ARGS: <amount> <path/to/input/file>\n");
     exit(1);
   }
 
@@ -30,9 +31,9 @@ int main(int argc, char* argv[]) {
     printf("%lld\n", numArray[i]);
   }
 
-  lseek(fd, 0L, SEEK_END);
+  fseek(fd, 0L, SEEK_END);
   long int size = ftell(fd);
-  printf("------\n%llu bytes read\n", size);
+  printf("------\n%ld bytes read\n", size);
 
   fclose(fd);
 }
