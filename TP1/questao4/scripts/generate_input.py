@@ -1,8 +1,9 @@
 #!/usr/bin/env python
-# ARGS: <number_of_numbers_to_genearate> <'A'|'B'> [path/to/output/file]
+# ARGS: <number_of_numbers_to_generate> <'A'|'B'> [path/to/output/file]
 from os.path import abspath
 from time import sleep
 import random
+import math
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
@@ -27,9 +28,18 @@ def save_arr(arr, filename):
   # fd.close
 
 
-# TODO:
 def generate_to_case_A(n):
-  return generate(n)
+  data = np.empty(n, dtype=np.int64)
+  offset = math.floor(0.10 * n)
+  fixed_value = random.randint(INT_MIN, INT_MAX)
+
+  for i in range(n):
+    if (i % offset == 0):
+      r = random.randint(INT_MIN, INT_MAX) ## deve ser repetido de `fixed_value`
+      data[i] = r
+    else:
+      data[i] = fixed_value
+  return data
 
 def generate_to_case_B(n):
   return generate(n, unique=True)
@@ -54,4 +64,4 @@ if __name__ == "__main__":
       else:
         print(data_generated)
   else:
-    print( f"USAGE {sys.argv[0]} <number_of_numbers_to_genearate> <'A'|'B'> [path/to/output/file]" )
+    print( f"USAGE {sys.argv[0]} <number_of_numbers_to_generate> <'A'|'B'> [path/to/output/file]" )
