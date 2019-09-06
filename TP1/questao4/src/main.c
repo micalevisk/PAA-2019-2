@@ -26,14 +26,15 @@
 #define err(fmt,...) fprintf(stderr, fmt "!\n", ##__VA_ARGS__);
 
 
-#define GET_MS(ini, fim) ((fim.tv_sec * 1000000 + fim.tv_usec) - (ini.tv_sec * 100000 + ini.tv_usec))
-
 void runSorter(Sorter sort, int64* data, uint64 nitems) {
   clock_t start = clock(); // (c) https://stackoverflow.com/questions/5248915
   sort(data, nitems);
-  clock_t stop = clock();
-  double elapsed = (double)(stop - start) * 1000.0 / CLOCKS_PER_SEC;
-  //                                        ^ in milliseconds
+  clock_t end = clock();
+  double elapsed = (double)(end - start);
+  #ifdef MS // Compute time in milliseconds
+  elapsed *= 1000.0;
+  #endif
+  elapsed /= CLOCKS_PER_SEC;
   fprintf(stdout, "%.2f\n", elapsed);
 }
 
@@ -79,6 +80,8 @@ int main(int argc, char* argv[]) {
       runSorter(heapsort, numArray, amount);
       break;
     case 'q':
+      __log__("will run quicksort")
+      runSorter(quicksort, numArray, amount);
       break;
     case 'r':
       break;

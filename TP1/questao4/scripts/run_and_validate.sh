@@ -1,12 +1,12 @@
 #!/bin/bash
 # Compila com o modo DEBUG ativo,
-# para executar ./main.exe <ALGORITHM_ID> <N> "<INPUT_FILE>"
+# para executar ./main_with_debug.exe <ALGORITHM_ID> <N> "<INPUT_FILE>"
 # afim de verificar se o resultado obtido está ordenado
 
 set -e
 # set -x
 
-EXECUTABLE="./main.exe"
+EXECUTABLE="./main_with_debug.exe"
 ALGORITHM_ID="$1"
 N="$2"
 INPUT_FILE="$3"
