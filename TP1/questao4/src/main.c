@@ -1,6 +1,6 @@
 // cd questao4
 // pipenv run scripts/generate_input.py 10000 B "__input.10000"
-// cc src/**/*.c -I./src/headers -D DEBUG -D VERBOSE -o main && ./main h 10000 "__input.10000"
+// cc src/**/*.c -I./src/headers -D DEBUG -D VERBOSE -o main.exe && ./main.exe h 10000 "__input.10000"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,11 +15,13 @@
   #define __log__(...) ; // do nothing
 #endif
 
+/*
 #ifdef DEBUG
   #define __debug__(fmt,...) fprintf(stdout, fmt "\n", ##__VA_ARGS__);
 #else
   #define __debug__(...) ; // do nothing
 #endif
+*/
 
 #define err(fmt,...) fprintf(stderr, fmt "!\n", ##__VA_ARGS__);
 
@@ -31,6 +33,7 @@ void runSorter(Sorter sort, int64* data, uint64 nitems) {
   sort(data, nitems);
   clock_t stop = clock();
   double elapsed = (double)(stop - start) * 1000.0 / CLOCKS_PER_SEC;
+  //                                        ^ in milliseconds
   fprintf(stdout, "%.2f\n", elapsed);
 }
 
@@ -88,8 +91,5 @@ int main(int argc, char* argv[]) {
   #endif
   free(numArray);
 
-  // struct timeval start, stop;
-  // gettimeofday(&start, NULL);
-  // gettimeofday(&start, NULL);
-  // GET_MS(start, stop)
+  return 0;
 }
