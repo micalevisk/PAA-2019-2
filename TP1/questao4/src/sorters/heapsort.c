@@ -1,7 +1,11 @@
 #include "algorithms.h"
 
 /*
-ALGORITMO PARA ORDENAÇÃO CRESCENTE O(nlogn) ou O(nlogn):
+(c) https://pt.wikipedia.org/wiki/Heapsort
+Pior caso:
+T(n) = T(n-1) + T(0) + Θ(n)
+Melhor caso:
+T(n) = 2T(n/2) + Θ(n)
 -------------------------------------------------------------------------
 ______________
 Rotina_Heapify
@@ -45,37 +49,35 @@ Rotina_Heapsort
 -------------------------------------------------------------------------
 */
 
-void heapify(int64* arr, uint64 pai, int64 posUltimo) {
-	uint64 esq, dir, posMaior;
-	esq = 2*pai + 1;
-	dir = esq + 1;
-	posMaior = pai;
 
-	if ((esq <= posUltimo) && (arr[esq] > arr[posMaior])) {
-		posMaior = esq;
-	}
-	if ((dir <= posUltimo) && (arr[dir] > arr[posMaior])) {
-		posMaior = dir;
-	}
+void maxHeapify(int64 *arr, int64 pai, int64 posUltimo) {
+  int64 esq, dir, posMaior;
+  esq = 2 * pai + 1;
+  dir = esq + 1;
+  posMaior = pai;
 
-	if (posMaior != pai) {
-		swap(arr, pai, posMaior);
-		heapify(arr, posMaior, posUltimo);
-	}
+  if ((esq <= posUltimo) && (arr[esq] > arr[posMaior]))
+    posMaior = esq;
 
+  if ((dir <= posUltimo) && (arr[dir] > arr[posMaior]))
+    posMaior = dir;
+
+  if (posMaior != pai) {
+    swap(arr, pai, posMaior);
+    maxHeapify(arr, posMaior, posUltimo);
+  }
 }
 
-void buildHeap(int64* arr, uint64 n) {
-	for (int64 i=(n-1)/2; i >= 0; --i)
-		heapify(arr, i, n-1);
+void buildHeap(int64 *arr, uint64 n) {
+  for (int64 i=(n-1)/2; i >= 0; --i)
+    maxHeapify(arr, i, n-1);
 }
 
-
-void heapsort(int64* arr, uint64 n) {
-	buildHeap(arr, n);
-	for (int64 i=n-1; i > 0; ){
-		swap(arr, i, 0);
-		--i;
-		heapify(arr, 0, i);
-	}
+void heapsort(int64 *vetor, uint64 tamanho) {
+  buildHeap(vetor, tamanho);
+  for (int64 i=tamanho-1; i > 0; ){
+    swap(vetor, i, 0);
+    --i;
+    maxHeapify(vetor, 0, i);
+  }
 }

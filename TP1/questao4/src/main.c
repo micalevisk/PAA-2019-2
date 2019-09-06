@@ -40,18 +40,18 @@ void runSorter(Sorter sort, int64* data, uint64 nitems) {
 
 int main(int argc, char* argv[]) {
   if (argc != 4) {
-    printf("ARGS: [heap|quick|radix] <amount> <path/to/input/file>\n");
+    printf("ARGS: <heap|quick|radix> <amount> <path/to/input/file>\n");
     exit(1);
   }
 
   srand(time(NULL));
 
-  char* algorithm = argv[1];
+  char *algorithm = argv[1];
   uint64 amount = atol(argv[2]);
-  char* filename = argv[3];
+  char *filename = argv[3];
 
   __log__("will open file: '%s'", filename)
-  FILE* fd = fopen(filename, "r");
+  FILE *fd = fopen(filename, "r");
 
   if (!fd) {
     __log__("can't open file")
@@ -60,7 +60,8 @@ int main(int argc, char* argv[]) {
   }
 
   __log__("will alloc array with %lu int64-elements ", amount)
-  int64* numArray = (int64*) malloc(sizeof(*numArray) * amount);
+  // int64 *numArray = (int64*) malloc(sizeof(*numArray) * amount);
+  int64 *numArray = (int64*) calloc(amount, sizeof(int64));
 
   /* Lendo para do arquivo para a estrutura de dados em memória */
   for (uint64 i=0; (i < amount) && !feof(fd); ++i) {
@@ -84,9 +85,11 @@ int main(int argc, char* argv[]) {
       runSorter(quicksort, numArray, amount);
       break;
     case 'r':
+      __log__("will run radixsort")
+      runSorter(radixsort, numArray, amount);
       break;
     default:
-      err("Unknown algorithm: '%c'", algorithmId);
+      err("Unknown algorithm: '%s'", algorithm);
   }
 
   #ifdef DEBUG

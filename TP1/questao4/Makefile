@@ -3,13 +3,16 @@ SRCSDIR = src/
 INCLUDES = -I $(SRCSDIR)headers/
 CC = @gcc
 CFLAGS = -w -g
-SRCS_ALGORITMOS = $(addsuffix .c, $(addprefix algoritmos/, heapsort quicksort))
-SRCS = $(addprefix $(SRCSDIR), $(addsuffix .c, helpers main) $(SRCS_ALGORITMOS))
+SRCS_SORTERS = $(addsuffix .c, $(addprefix sorters/, heapsort quicksort radixsort))
+SRCS = $(addprefix $(SRCSDIR), $(addsuffix .c, helpers main) $(SRCS_SORTERS))
 OBJS = $(SRCS:.c=.o)
 EXEC = main.exe
 EXEC_DEBUG = main_with_debug.exe
 
 #########################
+ifeq ($(MILLISECONDS), true)
+	CFLAGS += -D MS
+endif
 ifeq ($(VERBOSE), true)
 	CFLAGS += -D VERBOSE
 endif
@@ -44,3 +47,6 @@ generate:
 check:
 	bash scripts/run_and_validate.sh $(ALGORITHM) $(N) "$(INPUT)"
 	@$(RM) $(EXEC_DEBUG)
+
+run:
+	./$(EXEC) $(ALGORITHM) $(N) "$(INPUT)"

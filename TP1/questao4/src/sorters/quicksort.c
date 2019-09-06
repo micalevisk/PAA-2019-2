@@ -1,12 +1,11 @@
 #include "algorithms.h"
 
 /*
+(c) https://pt.wikipedia.org/wiki/Quicksort
 Pior caso:
 T(n) = T(n-1) + T(0) + Θ(n)
-O(n²)
 Melhor caso:
 T(n) = 2T(n/2) + Θ(n)
-O(nlogn)
 ------------------------------------------------------
 algorithm quicksort(A, lo, hi) is
     if lo < hi then
@@ -27,8 +26,7 @@ algorithm particiona(A, lo, hi) is
 ------------------------------------------------------
 */
 
-// Codificado como o pseudo-código do Cormem p.124
-uint64 partition(int64* arr, int64 inicio, int64 fim) {
+uint64 partition(int64 *arr, int64 inicio, int64 fim) {
   int64 pivo = arr[fim];
   int64 i = inicio - 1;
 
@@ -43,7 +41,7 @@ uint64 partition(int64* arr, int64 inicio, int64 fim) {
   return i + 1;
 }
 
-void sort(int64* arr, int64 inicio, int64 fim) {
+void sort(int64 *arr, int64 inicio, int64 fim) {
   if (inicio < fim) {
     int64 meio = partition(arr, inicio, fim);
     sort(arr, inicio, meio - 1);
@@ -51,6 +49,6 @@ void sort(int64* arr, int64 inicio, int64 fim) {
   }
 }
 
-void quicksort(int64* arr, uint64 n) {
-  sort(arr, 0, n);
+void quicksort(int64 *vetor, uint64 tamanho) {
+  sort(vetor, 0, tamanho);
 }

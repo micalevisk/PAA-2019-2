@@ -3,13 +3,19 @@
 ## With GNU Make
 ```bash
 cd questao4
-make # vai gerar um executável de nome `main.exe`
+make MILLISECONDS=true # vai gerar um executável de nome `main.exe`
 make mostlyclean # apagar os objetos gerados
 
 make generate SCENARIO=B N=1000 # gerar uma entrada para o cenário B com tamanho 1.000
-make check N=1000 ALGORITHM=heap INPUT=__input.1000
-make check N=1000 ALGORITHM=quick INPUT=__input.1000
-make check N=1000 ALGORITHM=radix INPUT=__input.1000
+
+## verificar se está ordenando de fato
+make check ALGORITHM=heap  N=1000 INPUT=__input.1000
+make check ALGORITHM=quick N=1000 INPUT=__input.1000
+make check ALGORITHM=radix N=1000 INPUT=__input.1000
+## verificar o tempo de ordenação
+make run ALGORITHM=heap  N=1000 INPUT=__input.1000
+make run ALGORITHM=quick N=1000 INPUT=__input.1000
+make run ALGORITHM=radix N=1000 INPUT=__input.1000
 ```
 
 ## Without GNU Make
@@ -18,7 +24,7 @@ cd questao4
 pipenv install # apenas na primeira vez
 
 pipenv run scripts/generate_input.py 10000 B "input"
-cc src/main.c -I./src/algoritmos -o main && ./main h 10000 "input"
+cc src/**/*.c -I./src/headers -D MS -o main.exe && ./main.exe h 10000 "input"
 ```
 
 # O relatório deve conter
@@ -35,9 +41,8 @@ deve ser testado sob o mesmo conjunto de dados. Para tal, os dados foram gerados
 
 O programa final deverá ser executado pela linha de comandos, e possui a seguinte interface:
 ```bash
-[OPÇÕES] <algoritmo> </caminho/para/o/arquivo/entrada>
+<algoritmo> <quantidade_de_elementos> </caminho/para/o/arquivo/entrada>
 # OPÇÕES:
-## --quiet    [false] Flag para não mostrar o array ordenado
 # Sendo `algoritmo` um dos listados abaixo:
 ## heapsort, quicksort, radixsort
 ```

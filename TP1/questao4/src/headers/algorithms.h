@@ -12,6 +12,7 @@ typedef void (*Sorter)(int64*, uint64);
 
 void heapsort(int64*, uint64);
 void quicksort(int64*, uint64);
+void radixsort(int64*, uint64);
 
 
 #endif
