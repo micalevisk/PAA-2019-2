@@ -46,7 +46,7 @@ Rotina_Heapsort
 -------------------------------------------------------------------------
 */
 
-	
+
 
 void heapify(int64* v, uint64 pai, int64 posUltimo) {
 	uint64 esq, dir, posMaior;
@@ -62,7 +62,7 @@ void heapify(int64* v, uint64 pai, int64 posUltimo) {
 	}
 
 	if (posMaior != pai) {
-		swap(&v[pai], &v[posMaior]);
+		swap(v, pai, posMaior);
 		heapify(v, posMaior, posUltimo);
 	}
 
@@ -77,7 +77,7 @@ void buildHeap(int64* v, uint64 n) {
 void heapsort(int64* v, uint64 n) {
 	buildHeap(v, n);
 	for (int64 i=n-1; i > 0; ){
-		swap(&v[i], &v[0]);
+		swap(v, i, 0);
 		--i;
 		heapify(v, 0, i);
 	}
