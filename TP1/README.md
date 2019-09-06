@@ -4,6 +4,12 @@
 ```bash
 cd questao4
 make # vai gerar um executável de nome `main.exe`
+make mostlyclean # apagar os objetos gerados
+
+make generate SCENARIO=B N=1000 # gerar uma entrada para o cenário B com tamanho 1.000
+make check N=1000 ALGORITHM=heap INPUT=__input.1000
+make check N=1000 ALGORITHM=quick INPUT=__input.1000
+make check N=1000 ALGORITHM=radix INPUT=__input.1000
 ```
 
 ## Without GNU Make

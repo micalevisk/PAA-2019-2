@@ -7,6 +7,7 @@ SRCS_ALGORITMOS = $(addsuffix .c, $(addprefix algoritmos/, heapsort quicksort))
 SRCS = $(addprefix $(SRCSDIR), $(addsuffix .c, helpers main) $(SRCS_ALGORITMOS))
 OBJS = $(SRCS:.c=.o)
 EXEC = main.exe
+EXEC_DEBUG = main_with_debug.exe
 
 #########################
 ifeq ($(VERBOSE), true)
@@ -14,7 +15,7 @@ ifeq ($(VERBOSE), true)
 endif
 ifeq ($(DEBUG), true)
 	CFLAGS += -D DEBUG
-	EXEC = main_with_debug.exe
+	EXEC = $(EXEC_DEBUG)
 endif
 #########################
 
@@ -38,4 +39,8 @@ mostlyclean:
 	@$(RM) $(OBJS)
 
 generate:
-	pipenv run scripts/generate_input.py $(N) B "__input.$(N)"
+	pipenv run scripts/generate_input.py $(N) $(SCENARIO) "__input.$(N)"
+
+check:
+	bash scripts/run_and_validate.sh $(ALGORITHM) $(N) "$(INPUT)"
+	@$(RM) $(EXEC_DEBUG)
