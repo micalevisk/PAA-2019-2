@@ -1,4 +1,12 @@
 # Run
+
+## With GNU Make
+```bash
+cd questao4
+make # vai gerar um executável de nome `main.exe`
+```
+
+## Without GNU Make
 ```bash
 cd questao4
 pipenv install # apenas na primeira vez

@@ -14,6 +14,7 @@ ifeq ($(VERBOSE), true)
 endif
 ifeq ($(DEBUG), true)
 	CFLAGS += -D DEBUG
+	EXEC = main_with_debug.exe
 endif
 #########################
 
