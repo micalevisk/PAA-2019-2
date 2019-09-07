@@ -55,12 +55,12 @@ if __name__ == "__main__":
     output_filename = sys.argv[3] if len(sys.argv) > 3 else None
 
     if (N > 0):
-      print("...")
       selected_generator = switcher_cases.get(case, lambda: "Invalid case")
       data_generated = selected_generator(N)
       sleep(1)
       if (output_filename):
         save_arr(data_generated, abspath(output_filename))
+        print(output_filename)
       else:
         print(data_generated)
   else:

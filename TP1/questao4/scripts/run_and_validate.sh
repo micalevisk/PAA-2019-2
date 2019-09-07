@@ -3,8 +3,9 @@
 
 [ $# -ne 3 ] && { echo "ARGS: <ALGORITHM_ID> <N> <INPUT_FILE>" ; exit 1; }
 
+cd "$(dirname "$0")" ; cd .. ; ## garantindo que será executado no diretório pai deste script
+
 set -e
-# set -x
 
 EXECUTABLE="./main_with_debug.exe"
 ALGORITHM_ID="$1"
