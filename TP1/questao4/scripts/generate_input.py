@@ -9,7 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 INT_MAX = sys.maxsize
-INT_MIN = -sys.maxsize-1
+INT_MIN = 0 #-sys.maxsize-1
 
 # | numpy    | C
 # +----------+---------------

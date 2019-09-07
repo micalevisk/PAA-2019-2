@@ -11,6 +11,7 @@ void radixsort(int64 *vetor, uint64 tamanho) {
   int64 exp = 1;
 
   int64 *b = (int64*)calloc(tamanho, sizeof(int64));
+  // int64 *b = (int64*) malloc(sizeof(*b) * tamanho);
 
   for (int64 i = 0; i < tamanho; i++){
     if (vetor[i] > maior)
@@ -19,6 +20,7 @@ void radixsort(int64 *vetor, uint64 tamanho) {
 
   while (maior / exp > 0) {
     int bucket[10] = {0};
+
     for (int64 i = 0; i < tamanho; i++)
       bucket[(vetor[i] / exp) % 10]++;
 

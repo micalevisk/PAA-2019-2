@@ -34,7 +34,7 @@ trap 'clean_up' EXIT ## Assume que nenhum comando pode dar erro (terminar com co
 ## ===============================================================
 CENARIOS=("A" "B") ## reconhecidos pelo `generate_input.py`
 INSTANCIAS=("20k" "40k" "60k" "80k" "100k" "120k")
-ALGORITMOS=("quicksort" "heapsort")
+ALGORITMOS=("quicksort" "heapsort" "radixsort")
 QTD_VEZES=5 ## quantidade de execuções para a mesma entrada
 
 executar_cenario() {
