@@ -18,6 +18,7 @@ clean_up() {
   ARG=$?
   if [ $ARG -eq 0 ]; then
     echo "Finalizado!"
+    make clean
   else
     echo "Something went wrong!"
     # read -n1 -p "Clean up? (n)"

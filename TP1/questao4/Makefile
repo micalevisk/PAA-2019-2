@@ -48,5 +48,8 @@ check:
 	bash scripts/run_and_validate.sh $(ALGORITHM) $(N) "$(INPUT)"
 	@$(RM) $(EXEC_DEBUG)
 
+bench:
+	time bash scripts/generate_results.sh
+
 run:
 	./$(EXEC) $(ALGORITHM) $(N) "$(INPUT)"

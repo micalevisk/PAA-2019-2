@@ -16,6 +16,9 @@ make check ALGORITHM=radix N=1000 INPUT=__input.1000
 make run ALGORITHM=heap  N=1000 INPUT=__input.1000
 make run ALGORITHM=quick N=1000 INPUT=__input.1000
 make run ALGORITHM=radix N=1000 INPUT=__input.1000
+
+## para executar o benchmark
+make bench
 ```
 
 ## Without GNU Make
