@@ -44,19 +44,25 @@ executar_cenario() {
   ## Criar o diretório das saídas para o cenário corrente
   mkdir -p "$cenario_dir"
 
+  echo "#algoritmo,instancia,tempo(ms)"
   for N in "${INSTANCIAS[@]}"; do
-    instancia="${N//k/000}"
+    instancia="${N//k/000}" ## substituir os 'k' por '000'
     ## Gerar entrada para a instância corrente
     arquivo_entrada="$(make -s generate SCENARIO=$cenario_id N=$instancia)"
     CURR_INPUT_FILE="$arquivo_entrada"
 
     for algoritmo in "${ALGORITMOS[@]}"; do
       arquivo_saida="${cenario_dir}/${algoritmo}.exec_times-${instancia}.txt"
+      echo -n "" > "$arquivo_saida" ## garantir que o arquivo não contém dados
 
       for i in `seq 1 $QTD_VEZES`; do
         make -s run ALGORITHM="$algoritmo" N="$instancia" INPUT="$arquivo_entrada" >> "$arquivo_saida"
         sleep 0.2
       done
+      
+      ## Mostrar média dos tempos de execuções
+      tempo_medio=$(awk '{ soma+=$1 ; ++n } END { print soma/n }' "${arquivo_saida}")
+      echo "${algoritmo},${instancia},${tempo_medio}"
     done
 
     ## Apagar entrada gerada
@@ -65,5 +71,5 @@ executar_cenario() {
 }
 
 for cenario_id in "${CENARIOS[@]}"; do
-  executar_cenario "$cenario_id"
+  executar_cenario "$cenario_id" | tee "${cenario_id}.tempos.csv"
 done
