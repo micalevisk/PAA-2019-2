@@ -71,5 +71,5 @@ executar_cenario() {
 }
 
 for cenario_id in "${CENARIOS[@]}"; do
-  executar_cenario "$cenario_id" | tee "${cenario_id}.tempos.csv"
+  executar_cenario "$cenario_id" | tee "${RESULTS_DIR}/${cenario_id}.tempos.csv"
 done
