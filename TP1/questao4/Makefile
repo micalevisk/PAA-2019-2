@@ -1,16 +1,55 @@
-# mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
-# current_dir := $(notdir $(patsubst %/,%,$(dir $(mkfile_path))))
-# ROOT_DIR :=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+RM = rm -f
+SRCSDIR = src/
+INCLUDES = -I $(SRCSDIR)headers/
+CC = @gcc
+CFLAGS = -w -g
+SRCS_SORTERS = $(addsuffix .c, $(addprefix sorters/, heapsort quicksort radixsort))
+SRCS = $(addprefix $(SRCSDIR), $(addsuffix .c, helpers main) $(SRCS_SORTERS))
+OBJS = $(SRCS:.c=.o)
+EXEC = main.exe
+EXEC_DEBUG = main_with_debug.exe
 
-FILENAME := $(basename $(FILE))
-ext := $(suffix $(FILE))
+#########################
+ifeq ($(MILLISECONDS), true)
+	CFLAGS += -D MS
+endif
+ifeq ($(VERBOSE), true)
+	CFLAGS += -D VERBOSE
+endif
+ifeq ($(DEBUG), true)
+	CFLAGS += -D DEBUG
+	EXEC = $(EXEC_DEBUG)
+endif
+#########################
 
-# REALPREFIX = $(realpath $(PREFIX))
-# LDLIBS := -lm
+.PHONY: depend clean
 
-$(FILENAME):
-	$(CC) $@$(ext) -o $@.exe $(LDLIBS) -D DEBUG=true
-	$(MAKE) run
+all: $(EXEC)
+
+$(EXEC): $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $^
+
+.c.o:
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+clean:
+	@$(RM) $(OBJS) $(EXEC)
+
+depend: $(SRCS)
+	makedepend $(INCLUDES) $^
+
+mostlyclean:
+	@$(RM) $(OBJS)
+
+generate:
+	pipenv run scripts/generate_input.py $(N) $(SCENARIO) "__input.$(N)"
+
+check:
+	bash scripts/run_and_validate.sh $(ALGORITHM) $(N) "$(INPUT)"
+	@$(RM) $(EXEC_DEBUG)
+
+bench:
+	time bash scripts/generate_results.sh
 
 run:
-	./$(FILENAME).exe
+	./$(EXEC) $(ALGORITHM) $(N) "$(INPUT)"
